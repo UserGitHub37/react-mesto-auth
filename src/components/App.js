@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -10,6 +11,10 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
+import ProtectedRoute from './ProtectedRoute';
+import Login from './Login';
+import Register from './Register';
+
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -22,6 +27,10 @@ function App() {
   const [userUpdateButtonName, setUserUpdateButtonName] = useState('Сохранить');
   const [placeUpdateButtonName, setPlaceUpdateButtonName] = useState('Создать');
   const [cardToDelete, setCardToDelete] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [email, setEmail] = useState('email@mail.com');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.getUserInfo()
@@ -118,18 +127,81 @@ function App() {
     });
   }
 
+function handleLogin () {
+
+  // setLoggedIn(true);
+}
+
+function handleSignOut () {
+  setLoggedIn(false);
+  // localStorage.removeItem('jwt');
+  navigate('/signin');
+}
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header />
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick} cards={cards}
-        onCardLike={handleCardLike}
-        onCardDelete={setCardToDelete}
-      />
-      <Footer />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Header>
+                <span className="header__email">{email}</span>
+                <button
+                  type="button"
+                  className="header__button"
+                  onClick={handleSignOut}
+                >
+                  Выйти
+                </button>
+              </Header>
+              <Main
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={setCardToDelete}
+              />
+              <Footer />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/signin"
+          element={
+            <>
+              <Header>
+                <Link to="/signup" className="header__link">
+                  Регистрация
+                </Link>
+              </Header>
+              <Login onLogin={handleLogin} buttonName="Войти" />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <>
+              <Header>
+                <Link to="/signin" className="header__link">
+                  Войти
+                </Link>
+              </Header>
+              <Register buttonName="Зарегистрироваться" />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route path="*" element={<div>404 Page not found</div>} />
+      </Routes>
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
@@ -153,18 +225,15 @@ function App() {
       />
 
       <PopupWithForm
-        title='Вы уверены?'
-        name='confirmation'
+        title="Вы уверены?"
+        name="confirmation"
         isOpen={Boolean(cardToDelete)}
-        buttonName='Да'
+        buttonName="Да"
         onClose={closeAllPopups}
         onSubmit={handleCardDelete}
       />
 
-      <ImagePopup
-        card={selectedCard}
-        onClose={closeAllPopups}
-      />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
 }

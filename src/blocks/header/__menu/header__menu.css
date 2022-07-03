@@ -1,0 +1,193 @@
+/*
+BODY * {
+  outline: 1px solid red;
+}
+*/
+
+.header__menu {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: baseline;
+  column-gap: 25px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+  padding-top: 7px;
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu {
+  font-size: 14px;
+  line-height: 17px;
+  }
+}
+
+.header__email {
+  font-weight: 500;
+}
+
+.header__button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.header__button:hover {
+  opacity: 0.6;
+}
+
+.header__link {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+
+.content__auth {
+  margin: 0 auto;
+  padding: 21px 11px;
+}
+
+@media screen and (max-width: 767px) {
+  .content__auth {
+    padding-top: 0;
+  }
+}
+
+.auth {
+  max-width: 358px;
+}
+
+.auth__title {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #fff;
+  margin: 0 0 50px;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__title {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 40px;
+  }
+}
+
+.auth__input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  background-color: inherit;
+  color: #ccc;
+  padding: 0 0 8px;
+  border: 0;
+  border-bottom: 2px solid #ccc;
+}
+
+.auth__input:focus {
+  outline: 0;
+}
+
+.auth__error-message {
+  display: block;
+  visibility: hidden;
+  color: #FF0000;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.25;
+  min-height: 29.5px;
+  margin-top: 1px;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__error-message {
+    min-height: 28.5px;
+  }
+}
+
+
+.auth__error-message:last-of-type {
+  min-height: 43px;
+  margin: 5px 0 168px;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__error-message:last-of-type {
+    margin-bottom: 125.5px;
+  }
+}
+
+.auth__submit-button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000;
+  background: #fff;
+  border: none;
+  padding: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.auth__submit-button:hover {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__submit-button {
+    height: 46px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.auth__footnote {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  margin: 0;
+  padding-top: 16px;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__footnote {
+    padding-top: 20px;
+  }
+}
+
+.auth__footnote-link {
+  margin: 0;
+  text-decoration: none;
+  color:inherit;
+  transition: opacity 0.2s ease;
+}
+
+.auth__footnote-link:hover {
+  opacity: 0.6;
+}
+
+
+@media screen and (max-width: 767px) {
+
+}

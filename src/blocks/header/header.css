@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  justify-content: space-between;
   max-width: 880px;
   padding-bottom: 36px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
@@ -6,6 +8,6 @@
 
 @media screen and (max-width: 767px) {
   .header {
-    padding-bottom: 27px;
+    padding: 0 30px 27px;
   }
 }
