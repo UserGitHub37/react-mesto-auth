@@ -14,12 +14,13 @@ import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
-
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -68,6 +69,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
     setSelectedCard(null);
     setCardToDelete(null);
   }
@@ -137,7 +139,6 @@ function handleSignOut () {
   // localStorage.removeItem('jwt');
   navigate('/signin');
 }
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -234,6 +235,8 @@ function handleSignOut () {
       />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+
+      <InfoTooltip loggedIn={loggedIn} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
 }
