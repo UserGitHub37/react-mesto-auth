@@ -1,4 +1,4 @@
-function InfoTooltip ({ loggedIn, isOpen, onClose }) {
+function InfoTooltip ({ isRegistered, isOpen, onClose }) {
 
   return (
     <div className={`popup popup_infoTooltip ${isOpen && "popup_opened"}`}>
@@ -9,9 +9,9 @@ function InfoTooltip ({ loggedIn, isOpen, onClose }) {
           aria-label="Закрыть окно"
           className="popup__close-button"
         ></button>
-        <div className={`popup__status-image ${!loggedIn && "popup__status-image_error"}`}></div>
+        <div className={`popup__status-image ${!isRegistered && "popup__status-image_error"}`}></div>
         <p className="popup__message">
-          {loggedIn ? (
+          {isRegistered ? (
             <>Вы&nbsp;успешно зарегистрировались!</>
           ) : (
             <>Что-то пошло не&nbsp;так! Попробуйте ещё раз.</>

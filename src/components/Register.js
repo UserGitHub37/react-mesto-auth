@@ -1,11 +1,11 @@
-import AuthForm from "./AuthForm";
 import { Link } from 'react-router-dom';
+import AuthForm from "./AuthForm";
 
-function Register ({ onLogin }) {
+function Register ({ onRegister }) {
 
   return (
-    <AuthForm title={'Регистрация'} buttonName={'Зарегистрироваться'}>
-      Уже зарегистрированы? <Link to="/signin" className="auth__footnote-link">Войти</Link>
+    <AuthForm title={'Регистрация'} buttonName={'Зарегистрироваться'} onSubmit={onRegister}>
+      <p className="auth__footnote">Уже зарегистрированы? <Link to="/signin" className="auth__footnote-link">Войти</Link></p>
     </AuthForm>
   );
 }

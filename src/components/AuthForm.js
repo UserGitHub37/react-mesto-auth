@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState } from 'react';
 
-function AuthForm ({ onLogin, title, buttonName, children }) {
+function AuthForm ({ title, buttonName, children, onSubmit }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,10 +15,13 @@ function AuthForm ({ onLogin, title, buttonName, children }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    onLogin({
+    onSubmit({
       email,
       password,
     });
+
+    setEmail('');
+    setPassword('');
   }
 
   return (
@@ -35,7 +38,7 @@ function AuthForm ({ onLogin, title, buttonName, children }) {
 
           <button type='submit' className='auth__submit-button'>{buttonName}</button>
         </form>
-        <p className="auth__footnote">{children}</p>
+        {children}
       </div>
     </main>
   );

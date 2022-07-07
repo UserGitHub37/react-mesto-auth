@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
+
 import '../index.css';
+
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-import api from '../utils/api';
-import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
-import ProtectedRoute from './ProtectedRoute';
-import Login from './Login';
-import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+
+import api from '../utils/api';
+import apiAuth from '../utils/apiAuth'
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -28,8 +33,9 @@ function App() {
   const [userUpdateButtonName, setUserUpdateButtonName] = useState('Сохранить');
   const [placeUpdateButtonName, setPlaceUpdateButtonName] = useState('Создать');
   const [cardToDelete, setCardToDelete] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('email@mail.com');
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,6 +51,9 @@ function App() {
       setCards(initialCards);
     })
     .catch(err => console.log(err));
+
+    handleTokenCheck();
+
   }, []);
 
   function handleCardLike(card) {
@@ -129,16 +138,51 @@ function App() {
     });
   }
 
-function handleLogin () {
+  function handleRegister(data) {
+    apiAuth.register(data)
+    .then(() => {
+      setIsRegistered(true);
+      navigate('/signin');
+    })
+    .catch((err) => {
+      setIsRegistered(false);
+      console.log(err);
+    })
+    .finally(() => setIsInfoTooltipPopupOpen(true))
+  }
 
-  // setLoggedIn(true);
-}
+  function handleLogin(data) {
+    apiAuth.authorize(data)
+    .then((res) => {
+      localStorage.setItem('token', res.token);
+      setLoggedIn(true);
+      setEmail(data.email);
+      navigate('/');
+    })
+    .catch(err => console.log(err));
+  }
 
-function handleSignOut () {
-  setLoggedIn(false);
-  // localStorage.removeItem('jwt');
-  navigate('/signin');
-}
+  function handleSignOut () {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    navigate('/signin');
+  }
+
+  function handleTokenCheck() {
+
+    if(localStorage.getItem('token')) {
+      apiAuth.checkToken(localStorage.getItem('token'))
+      .then((res) => {
+        setEmail(res.data.email);
+        setLoggedIn(true);
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -180,7 +224,7 @@ function handleSignOut () {
                   Регистрация
                 </Link>
               </Header>
-              <Login onLogin={handleLogin} buttonName="Войти" />
+              <Login buttonName="Войти" onLogin={handleLogin} />
               <Footer />
             </>
           }
@@ -195,7 +239,7 @@ function handleSignOut () {
                   Войти
                 </Link>
               </Header>
-              <Register buttonName="Зарегистрироваться" />
+              <Register buttonName="Зарегистрироваться" onRegister={handleRegister}/>
               <Footer />
             </>
           }
@@ -236,7 +280,7 @@ function handleSignOut () {
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-      <InfoTooltip loggedIn={loggedIn} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
+      <InfoTooltip isRegistered={isRegistered} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
 }
