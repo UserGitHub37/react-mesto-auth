@@ -28,7 +28,7 @@ function AuthForm ({ title, buttonName, children, onSubmit }) {
     <main className="content page__content">
       <div className='auth content__auth'>
         <h2 className='auth__title'>{title}</h2>
-        <form className='auth__form' action='#' name='login' noValidate onSubmit={handleSubmit}>
+        <form className='auth__form' action='#' name='login' onSubmit={handleSubmit}>
 
           <input className='auth__input auth__input_field_email' id='email-input' type='email' name='email' placeholder='Email' minLength='5' maxLength='40' required value={email ? email : ''} onChange={handleChangeEmail}/>
           <span className='auth__error-message email-input-error'></span>

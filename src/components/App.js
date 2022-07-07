@@ -29,15 +29,29 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [avatarUpdateButtonName, setAvatarUpdateButtonName] = useState('Сохранить');
-  const [userUpdateButtonName, setUserUpdateButtonName] = useState('Сохранить');
-  const [placeUpdateButtonName, setPlaceUpdateButtonName] = useState('Создать');
+  const [isLoading, setIsLoading] = useState(false);
   const [cardToDelete, setCardToDelete] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('email@mail.com');
   const [isRegistered, setIsRegistered] = useState(false);
 
   const navigate = useNavigate();
+
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard || cardToDelete
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if(isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen])
 
   useEffect(() => {
     api.getUserInfo()
@@ -100,7 +114,7 @@ function App() {
   }
 
   function handleUpdateAvatar (inputData) {
-    setAvatarUpdateButtonName('Сохранение...');
+    setIsLoading(true);
     api.setUserAvatar(inputData)
     .then((userData) => {
       setCurrentUser(userData);
@@ -108,12 +122,12 @@ function App() {
     })
     .catch(err => console.log(err))
     .finally(() => {
-      setAvatarUpdateButtonName('Сохранить');
+      setIsLoading(false);
     });
   }
 
   function handleUpdateUser (inputData) {
-    setUserUpdateButtonName('Сохранение...');
+    setIsLoading(true);
     api.setUserInfo(inputData)
     .then((userData) => {
       setCurrentUser(userData);
@@ -121,12 +135,12 @@ function App() {
     })
     .catch(err => console.log(err))
     .finally(() => {
-      setUserUpdateButtonName('Сохранить');
+      setIsLoading(false);
     });
   }
 
   function handleAddPlaceSubmit (inputData) {
-    setPlaceUpdateButtonName('Сохранение...');
+    setIsLoading(true);
     api.addCard(inputData)
     .then((newCard) => {
       setCards([newCard, ...cards]);
@@ -134,7 +148,7 @@ function App() {
     })
     .catch(err => console.log(err))
     .finally(() => {
-      setPlaceUpdateButtonName('Создать');
+      setIsLoading(false);
     });
   }
 
@@ -252,21 +266,21 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
-        buttonName={avatarUpdateButtonName}
+        isLoading={isLoading}
       />
 
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
-        buttonName={userUpdateButtonName}
+        isLoading={isLoading}
       />
 
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
-        buttonName={placeUpdateButtonName}
+        isLoading={isLoading}
       />
 
       <PopupWithForm
