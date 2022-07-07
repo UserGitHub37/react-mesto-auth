@@ -37,22 +37,6 @@ function App() {
 
   const navigate = useNavigate();
 
-  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard || cardToDelete
-
-  useEffect(() => {
-    function closeByEscape(evt) {
-      if(evt.key === 'Escape') {
-        closeAllPopups();
-      }
-    }
-    if(isOpen) {
-      document.addEventListener('keydown', closeByEscape);
-      return () => {
-        document.removeEventListener('keydown', closeByEscape);
-      }
-    }
-  }, [isOpen])
-
   useEffect(() => {
     api.getUserInfo()
     .then((userData) => {
@@ -81,11 +65,15 @@ function App() {
 
   function handleCardDelete(e) {
     e.preventDefault();
+    setIsLoading(true);
     api.deleteCard(cardToDelete._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== cardToDelete._id));
       closeAllPopups();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => {
+      setIsLoading(false);
+    });
   }
 
   function closeAllPopups() {
@@ -259,7 +247,7 @@ function App() {
           }
         />
 
-        <Route path="*" element={<div>404 Page not found</div>} />
+        <Route path="*" element={<div style={{color: "#fff"}}>404 Page not found</div>} />
       </Routes>
 
       <EditAvatarPopup
@@ -287,7 +275,7 @@ function App() {
         title="Вы уверены?"
         name="confirmation"
         isOpen={Boolean(cardToDelete)}
-        buttonName="Да"
+        buttonName={ isLoading ? "Удаление..." : "Да" }
         onClose={closeAllPopups}
         onSubmit={handleCardDelete}
       />
@@ -295,6 +283,7 @@ function App() {
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       <InfoTooltip isRegistered={isRegistered} isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
+
     </CurrentUserContext.Provider>
   );
 }
