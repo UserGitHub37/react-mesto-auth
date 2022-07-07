@@ -35,13 +35,11 @@ class ApiAuth {
     }).then(this._checkPromise);
   }
 
-
 }
 
 const apiAuth = new ApiAuth({
   baseUrl: 'https://auth.nomoreparties.co',
   headers: {
-    // authorization: '7a2dc15d-d1bf-4fc7-a20c-343b3e4fd575',
     'Content-Type': 'application/json',
   }
 });

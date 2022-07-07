@@ -1,0 +1,28 @@
+.auth__error-message {
+  display: block;
+  visibility: hidden;
+  color: #FF0000;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.25;
+  min-height: 29.5px;
+  margin-top: 1px;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__error-message {
+    min-height: 28.5px;
+  }
+}
+
+
+.auth__error-message:last-of-type {
+  min-height: 43px;
+  margin: 5px 0 168px;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__error-message:last-of-type {
+    margin-bottom: 125.5px;
+  }
+}

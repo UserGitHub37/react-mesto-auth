@@ -1,0 +1,10 @@
+.content__auth {
+  margin: 0 auto;
+  padding: 21px 11px;
+}
+
+@media screen and (max-width: 767px) {
+  .content__auth {
+    padding-top: 0;
+  }
+}

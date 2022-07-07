@@ -1,0 +1,26 @@
+.auth__footnote {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  margin: 0;
+  padding-top: 16px;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__footnote {
+    padding-top: 20px;
+  }
+}
+
+.auth__footnote-link {
+  margin: 0;
+  text-decoration: none;
+  color:inherit;
+  transition: opacity 0.2s ease;
+}
+
+.auth__footnote-link:hover {
+  opacity: 0.6;
+}

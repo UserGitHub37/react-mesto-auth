@@ -1,0 +1,15 @@
+.popup__status-image {
+  margin: 26px  auto 32px;
+  width: 120px;
+  height: 120px;
+  background-image: url(../../../images/success.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__status-image {
+    margin-top: 23px;
+    margin-bottom: 41px;
+  }
+}
