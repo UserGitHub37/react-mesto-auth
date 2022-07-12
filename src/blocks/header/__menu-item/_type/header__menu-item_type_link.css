@@ -1,0 +1,15 @@
+.header__menu-item_type_link {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.header__menu-item_type_link:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu-item_type_link {
+
+  }
+}

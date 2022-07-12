@@ -194,10 +194,10 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header>
-                <span className="header__email">{email}</span>
+                <span className="header__menu-item header__menu-item_type_email">{email}</span>
                 <button
                   type="button"
-                  className="header__button"
+                  className="header__menu-item header__menu-item_type_button"
                   onClick={handleSignOut}
                 >
                   Выйти
@@ -222,7 +222,7 @@ function App() {
           element={
             <>
               <Header>
-                <Link to="/signup" className="header__link">
+                <Link to="/signup" className="header__menu-item header__menu-item_type_link">
                   Регистрация
                 </Link>
               </Header>
@@ -237,7 +237,7 @@ function App() {
           element={
             <>
               <Header>
-                <Link to="/signin" className="header__link">
+                <Link to="/signin" className="header__menu-item header__menu-item_type_link">
                   Войти
                 </Link>
               </Header>

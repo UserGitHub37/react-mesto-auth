@@ -1,18 +1,19 @@
 .header__menu {
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: baseline;
-  column-gap: 25px;
+  width:calc(100% - 145px);
+  padding-top: 7px;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #fff;
-  padding-top: 7px;
 }
 
 @media screen and (max-width: 767px) {
   .header__menu {
-  font-size: 14px;
-  line-height: 17px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

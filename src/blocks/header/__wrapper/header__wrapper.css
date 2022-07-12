@@ -1,0 +1,12 @@
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 45px 30px 36px;
+}
+
+@media screen and (max-width: 767px) {
+  .header__wrapper {
+    padding: 28px 30px 27px;
+  }
+}

@@ -1,5 +1,4 @@
-.header__button {
-  padding: 0;
+.header__menu-item_type_button {
   border: none;
   font: inherit;
   color: inherit;
@@ -8,6 +7,12 @@
   transition: opacity 0.2s ease;
 }
 
-.header__button:hover {
+.header__menu-item_type_button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu-item_type_button {
+
+  }
 }
