@@ -9,7 +9,6 @@ function AuthForm ({ title, buttonName, children, onSubmit }) {
     setPassword('');
   }, []);
 
-
   function handleChangeEmail(e) {
     setEmail(e.target.value);
   }

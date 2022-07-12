@@ -193,7 +193,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Header>
+              <Header loggedIn={loggedIn}>
                 <span className="header__menu-item header__menu-item_type_email">{email}</span>
                 <button
                   type="button"
@@ -221,7 +221,7 @@ function App() {
           path="/signin"
           element={
             <>
-              <Header>
+              <Header loggedIn={loggedIn}>
                 <Link to="/signup" className="header__menu-item header__menu-item_type_link">
                   Регистрация
                 </Link>
@@ -236,7 +236,7 @@ function App() {
           path="/signup"
           element={
             <>
-              <Header>
+              <Header loggedIn={loggedIn}>
                 <Link to="/signin" className="header__menu-item header__menu-item_type_link">
                   Войти
                 </Link>
