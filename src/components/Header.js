@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import logoPath from '../images/header-logo.svg';
 
 function Header ({ children, loggedIn }) {
-  const windowWidth = document.documentElement.clientWidth;
-  const [mainMenuVisible, setMainMenuVisible] = useState(windowWidth);
+  const [mainMenuVisible, setMainMenuVisible] = useState(true);
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState(false);
 
   useEffect(() => {
@@ -36,7 +35,7 @@ function Header ({ children, loggedIn }) {
           <img src={logoPath} alt='Логотип сайта' className='header__logo'/>
         </Link>
         {loggedIn && (
-          <button type="button" className={`burger ${mobileMenuIsOpened ? "burger_open" : ""}`} onClick={handleToggleMenu}>
+          <button type="button" className={`burger header__burger ${mobileMenuIsOpened ? "burger_open" : ""}`} onClick={handleToggleMenu}>
             <div className="burger__icon"></div>
           </button>
         )}
