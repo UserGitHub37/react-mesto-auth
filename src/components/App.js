@@ -38,21 +38,24 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getUserInfo()
-    .then((userData) => {
-      setCurrentUser(userData);
-    })
-    .catch(err => console.log(err));
-
-    api.getCardList()
-    .then((initialCards) => {
-      setCards(initialCards);
-    })
-    .catch(err => console.log(err));
-
     handleTokenCheck();
+  }, [])
 
-  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      api.getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch(err => console.log(err));
+
+      api.getCardList()
+      .then((initialCards) => {
+        setCards(initialCards);
+      })
+      .catch(err => console.log(err));
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
