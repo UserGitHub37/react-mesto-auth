@@ -3,23 +3,32 @@ import { Link } from 'react-router-dom';
 import logoPath from '../images/header-logo.svg';
 
 function Header ({ children, loggedIn }) {
+  const mql = window.matchMedia('(max-width: 767px)');
+
   const [mainMenuVisible, setMainMenuVisible] = useState(true);
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState(false);
+  const [isMobileScreenSize, setIsMobileScreenSize] = useState(mql.matches);
 
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    mql.addEventListener('change', handleChangeSize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      mql.removeEventListener('change', handleChangeSize);
     };
-  }, []);
+  }, [mql]);
 
-  function handleResize () {
-    const windowWidth = document.documentElement.clientWidth;
-    if ((windowWidth >= 768) || ((windowWidth < 768) && !loggedIn)) {
+  useEffect(() => {
+    if (!isMobileScreenSize || (isMobileScreenSize && !loggedIn)) {
       setMainMenuVisible(true);
     } else {
       setMainMenuVisible(false);
+    }
+  }, [isMobileScreenSize, loggedIn]);
+
+  function handleChangeSize (e) {
+    if (e.matches) {
+      setIsMobileScreenSize(true);
+    } else {
+      setIsMobileScreenSize(false);
     }
   }
 

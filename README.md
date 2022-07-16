@@ -15,8 +15,8 @@
   * сайт доступен по адресу https://usergithub37.github.io/react-mesto-auth/index.html
 
 
-  * [Ссылка на README.md проекта "mesto-react"](https://github.com/UserGitHub37/mesto-react/blob/main/README.md)
-  * [Чеклист для самопроверки. 12 Спринт.](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-12.pdf)
+  + [Ссылка на README.md проекта "mesto-react"](https://github.com/UserGitHub37/mesto-react/blob/main/README.md)
+  + [Чеклист для самопроверки. 12 Спринт.](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-12.pdf)
 
 
 Планируемые доработки проекта:
